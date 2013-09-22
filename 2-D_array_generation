@@ -1,0 +1,133 @@
+package lab3;
+
+import cse131.ArgsProcessor;
+
+public class MineSweeper {
+
+	public static void main (String[] args) {
+
+		//
+		// Do not change anything between here ...
+		//
+		ArgsProcessor ap = new ArgsProcessor(args);
+		int cols = ap.nextInt("How many columns?");
+		int rows = ap.nextInt("How many rows?");
+		double percent = ap.nextDouble("What is the probability of a bomb?"); //I'm assuming, based on the variable name, that this will be given as a percent from 0-100
+		//
+		// ... and here
+		//
+		//  Your code goes below these comments
+		//
+		String[][] mapArray = new String[rows][cols];
+		int i, j, k = 0;
+		for (i = 0; i < rows; i++){
+			if(i != 0){
+				System.out.print('\n');	
+			}
+			for (j = 0; j < cols; j++){
+				double numRand = Math.random();
+				double bombProb = percent/100.0;
+				if(numRand <= bombProb){
+					mapArray[i][j] = "*";
+				}
+				else{
+					mapArray[i][j] = ".";
+				}
+				System.out.print(mapArray[i][j] + " ");
+			}
+		}
+		System.out.println();
+		System.out.println();
+		for (i = 0; i < mapArray.length; i++){
+			if(i != 0){
+				System.out.print('\n');	
+			}
+			for (j = 0; j < mapArray[i].length; j++){
+				if (mapArray[i][j] == "*"){
+					System.out.print("*" + " ");
+				}
+				else if (mapArray[i][j] == "."){
+					int bombScore = 0;
+					System.out.print("GOTIT");
+					// UPPER LEFT
+					if (((i - 1) >= 0) && ((j - 1) >= 0)){
+						if (mapArray[i-1][j-1] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i-1][j-1] == "."){
+							System.out.print("");
+						}	
+					}
+					// UPPER CENTER
+					if (((i - 1) >= 0) && (j >= 0)){
+						if (mapArray[i-1][j] == ""){
+							++bombScore;
+						}
+						else if (mapArray[i-1][j] == "."){
+							System.out.print("");
+						}	
+					}
+					// UPPER RIGHT
+					if (((i - 1) >= 0) && ((j + 1) >= 0)){
+						if (mapArray[i-1][j+1] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i-1][j+1] == "."){
+							System.out.print("");
+						}	
+					}
+					// CENTER RIGHT
+					if ((i >= 0) && ((j + 1) >= 0)){
+						if (mapArray[i][j+1] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i][j+1] == "."){
+							System.out.print("");
+						}	
+					}
+					// LOWER RIGHT
+					if (((i + 1) >= 0) && ((j + 1) >= 0)){
+						if (mapArray[i+1][j+1] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i+1][j+1] == "."){
+							System.out.print("");
+						}	
+					}
+					// LOWER CENTER
+					if (((i + 1) >= 0) && (j >= 0)){
+						if (mapArray[i+1][j] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i+1][j] == "."){
+							System.out.print("");
+						}	
+					}
+					// LOWER LEFT
+					if (((i + 1) >= 0) && ((j - 1) >= 0)){
+						if (mapArray[i+1][j-1] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i+1][j-1] == "."){
+							System.out.print("");
+						}	
+					}
+					// CENTER LEFT
+					if ((i >= 0) && ((j - 1) >= 0)){
+						if (mapArray[i][j-1] == "*"){
+							++bombScore;
+						}
+						else if (mapArray[i][j-1] == "."){
+							System.out.print("");
+						}	
+						System.out.print(bombScore);
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+// Damn thing never prints the bombScore for j = 0
