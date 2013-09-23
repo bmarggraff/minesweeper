@@ -35,20 +35,13 @@ public class MineSweeper {
 				}
 				System.out.print(mapArray[i][j] + " ");
 			}
-		}
-		System.out.println();
-		System.out.println();
-		for (i = 0; i < mapArray.length; i++){
-			if(i != 0){
-				System.out.print('\n');	
-			}
+			System.out.print('\t');
 			for (j = 0; j < mapArray[i].length; j++){
 				if (mapArray[i][j] == "*"){
 					System.out.print("*" + " ");
 				}
 				else if (mapArray[i][j] == "."){
 					int bombScore = 0;
-					System.out.print("GOTIT");
 					// UPPER LEFT
 					if (((i - 1) >= 0) && ((j - 1) >= 0)){
 						if (mapArray[i-1][j-1] == "*"){
@@ -60,7 +53,7 @@ public class MineSweeper {
 					}
 					// UPPER CENTER
 					if (((i - 1) >= 0) && (j >= 0)){
-						if (mapArray[i-1][j] == ""){
+						if (mapArray[i-1][j] == "*"){
 							++bombScore;
 						}
 						else if (mapArray[i-1][j] == "."){
@@ -68,7 +61,7 @@ public class MineSweeper {
 						}	
 					}
 					// UPPER RIGHT
-					if (((i - 1) >= 0) && ((j + 1) >= 0)){
+					if (((i - 1) >= 0) && ((j + 1) < cols)){
 						if (mapArray[i-1][j+1] == "*"){
 							++bombScore;
 						}
@@ -77,7 +70,7 @@ public class MineSweeper {
 						}	
 					}
 					// CENTER RIGHT
-					if ((i >= 0) && ((j + 1) >= 0)){
+					if ((i >= 0) && ((j + 1) < cols)){
 						if (mapArray[i][j+1] == "*"){
 							++bombScore;
 						}
@@ -86,7 +79,7 @@ public class MineSweeper {
 						}	
 					}
 					// LOWER RIGHT
-					if (((i + 1) >= 0) && ((j + 1) >= 0)){
+					if (((i + 1) < rows) && ((j + 1) < cols)){
 						if (mapArray[i+1][j+1] == "*"){
 							++bombScore;
 						}
@@ -95,7 +88,7 @@ public class MineSweeper {
 						}	
 					}
 					// LOWER CENTER
-					if (((i + 1) >= 0) && (j >= 0)){
+					if (((i + 1) < rows) && (j >= 0)){
 						if (mapArray[i+1][j] == "*"){
 							++bombScore;
 						}
@@ -104,7 +97,7 @@ public class MineSweeper {
 						}	
 					}
 					// LOWER LEFT
-					if (((i + 1) >= 0) && ((j - 1) >= 0)){
+					if (((i + 1) < rows) && ((j - 1) >= 0)){
 						if (mapArray[i+1][j-1] == "*"){
 							++bombScore;
 						}
@@ -120,14 +113,10 @@ public class MineSweeper {
 						else if (mapArray[i][j-1] == "."){
 							System.out.print("");
 						}	
-						System.out.print(bombScore);
 					}
+					System.out.print(bombScore + " ");
 				}
 			}
 		}
 	}
 }
-
-
-
-// Damn thing never prints the bombScore for j = 0
